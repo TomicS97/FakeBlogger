@@ -28,4 +28,8 @@ export default {
       return rejected;
     }
   }
+    async logout(token: string) {
+    let resolved = (Promise as any).resolve({ status: 204 });
+    return resolved;
+  }
 };
