@@ -5,7 +5,7 @@
       <Header />
       <button class="button" v-on:click="logout">Logout</button>
       <NewBlog class='newBlog' v-on:add-blog="newBlog" v-if="isAdmin" />
-      <form class="search">
+      <form class="search" @submit="search">
         <input type="text" v-model="search" name="search" placeholder="Search Blogs" />
       </form>
       <Blogs v-bind:blogs="filterBlogs" v-on:delete-blog="deleteBlog" />
@@ -52,6 +52,9 @@ export default {
     }
   },
   methods: {
+    search(e){
+      e.preventDefault();
+    },
     logout() {                                                                                  //logout
       this.$store.dispatch('users/logout').then(() => this.$router.push('/'));
     },
