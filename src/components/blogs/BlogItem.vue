@@ -4,8 +4,8 @@
       <div v-if="!editing" class="title-label">{{ blog.title }}</div>
       <input v-else class="blog-title-edit" type="text" v-model="blog.title" @keyup.enter="doneEdit()" />
 
-      <button class="edit-me" @click="editBlog()">{{ button.name }}</button>
-      <button @click="$emit('delete-blog', blog.id)" class="del">Delete</button>
+      <button class="edit-me" @click="editBlog()" v-if="isAdmin">{{ button.name }}</button>
+      <button @click="$emit('delete-blog', blog.id)" class="del" v-if="isAdmin">Delete</button>
     </div>
     <div class="blog-body-left">
       <div v-if="!editing" class="body-label">{{ blog.body }}</div>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+let isAdmin;
+
 export default {
   name: "BlogItem",
   props: ["blog"],
@@ -24,7 +26,8 @@ export default {
       editing: false,
       button: {
         name: "Edit",
-      }
+      },
+      isAdmin: this.$store.getters['users/getIsAdmin'],
     };
   },
 
